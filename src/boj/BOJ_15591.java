@@ -9,8 +9,18 @@ import java.util.Queue;
 public class BOJ_15591 {
     static int nodeCount;
     static int questionCount;
-    static long[][] graph;
+    static List<List<Info>> graph;
     static int[] visited;
+
+    private static class Info{
+        private int nodeIndex;
+        private long USADO;
+
+        public Info(int nodeIndex, long USADO) {
+            this.nodeIndex = nodeIndex;
+            this.USADO = USADO;
+        }
+    }
 
     public static void main(String[] args) throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
@@ -19,38 +29,28 @@ public class BOJ_15591 {
 
         nodeCount = Integer.parseInt(RC[0]);
         questionCount = Integer.parseInt(RC[1]);
-
-        graph = new long[nodeCount + 1][nodeCount + 1];
-
-
+        graph = new ArrayList<>();
+        for (int i = 0; i < nodeCount + 1; i++) {
+            graph.add(new ArrayList<>());
+        }
 
         for (int i = 0; i < nodeCount - 1; i++) {
             String[] nodeInfo = reader.readLine().split(" ");
             int nodeIndex = Integer.parseInt(nodeInfo[0]);
             int otherNodeIndex = Integer.parseInt(nodeInfo[1]);
-            long USADO = Integer.parseInt(nodeInfo[2]);
+            long USADO = Long.parseLong(nodeInfo[2]);
 
-            graph[nodeIndex][otherNodeIndex] = USADO;
-            graph[otherNodeIndex][nodeIndex] = USADO;
-        }
-
-        for (int i = 1; i < graph.length; i++) {
-            visited = new int[nodeCount + 1];
-            for (int j = 1; j < graph[i].length; j++) {
-
-
-            }
-
-
+            graph.get(nodeIndex).add(new Info(otherNodeIndex, USADO));
+            graph.get(otherNodeIndex).add(new Info(nodeIndex, USADO));
         }
 
         for (int i = 0; i < questionCount; i++) {
             String[] qInfo = reader.readLine().split(" ");
-            long K = Integer.parseInt(qInfo[0]);
+            long K = Long.parseLong(qInfo[0]);
             int startNode = Integer.parseInt(qInfo[1]);
             List<Integer> recommendNodes = new ArrayList<>();
             Queue<Integer> queue = new LinkedList<>();
-
+            visited = new int[nodeCount + 1];
 
             queue.offer(startNode);
             visited[startNode] = 1;
@@ -58,11 +58,16 @@ public class BOJ_15591 {
             while (!queue.isEmpty()) {
                 Integer nodeIndex = queue.poll();
 
-                for (int j = 0; j < graph[nodeIndex].length; j++) {
-                    if (visited[j] == 0 && graph[nodeIndex][j] >= K) {
-                        recommendNodes.add(j);
-                        queue.offer(j);
-                        visited[j] = 1;
+                for (int j = 0; j < graph.get(nodeIndex).size(); j++) {
+                    Info info = graph.get(nodeIndex).get(j);
+                    if (info.USADO < K) {
+                        continue;
+                    }
+
+                    if (visited[info.nodeIndex] == 0 && info.USADO >= K) {
+                        recommendNodes.add(info.nodeIndex);
+                        queue.offer(info.nodeIndex);
+                        visited[info.nodeIndex] = 1;
                     }
                 }
             }
