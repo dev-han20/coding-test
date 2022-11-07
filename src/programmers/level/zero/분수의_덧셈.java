@@ -1,5 +1,6 @@
 package programmers.level.zero;
 
+
 public class 분수의_덧셈 {
     public int[] solution(int denum1, int num1, int denum2, int num2) {
         int min = Math.min(num1, num2);
@@ -14,6 +15,9 @@ public class 분수의_덧셈 {
                 int newNum2 = num2 * num1Mok;
                 int newDenum2 = denum2 * num1Mok;
             }
+
+
+
 
 
         }

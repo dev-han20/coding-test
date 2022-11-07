@@ -16,6 +16,7 @@ public class 신고_결과_받기_2022 {
 
     public int[] solution(String[] id_list, String[] report, int k) {
         ReportMachine rm = new ReportMachine(k);
+        Arrays.sort(id_list, Comparator.reverseOrder());
 
         for (int i = 0; i < report.length; i++) {
             String[] reportInfo = report[i].split(" ");
