@@ -1,6 +1,5 @@
 package inflearn.string;
 
-import java.util.Arrays;
 
 public class Method_Summary {
 
@@ -85,9 +84,14 @@ public class Method_Summary {
 		// 그럴필요 없이 문자열에 마지막에 " " 빈 문자를 넣어주고 순회는 문자열길이-1 만큼 하면
 		// 전부 다 순회할 수 있었음...
 
+		// 펠린드롬(토마토, 기러기 이런문자를 의미)
+		// 뒤집어서 같은 문자니까 그냥 문자열과 뒤집은 문자열을 비교해서 같으념 바로 같다고 판단하면댐
+		// 굳이 문자열을 char배열로 만들어서 하나하나 비교할 필요가 없음음
 
 		// 문자열을 교체할 떄  replace 사용
 		// 문자열이 이진법, 십진법, 팔진법 등등 일떄 십진법 숫자로 뽑는법 Integer.parseInt("해당진법표현숫자", "해당진법")
+		// 십진법 숫자를 다른 진법으로 뽑아낼 때 Integer.toString(십진법 숫자, 변환할 진법);
+		// Long.toString() 도 가능
 
 
 	}
